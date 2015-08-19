@@ -49,6 +49,26 @@ client.put('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.del('/repos/SamyPesse/octocat.js', { /* body parameters */})
 ```
 
+These methods return a `response` object that looks like:
+
+```js
+{
+    // HTTP Status code
+    statusCode: 200,
+
+    // Type of status: 2XX, 3XX, 4xx
+    statusType: '2XX',
+
+    // Headers returned by the server
+    headers: { ... },
+
+    // Body of the request
+    body: { ... }
+}
+```
+
+In case of error, the response can also be accessible using as a `response` property.
+
 #### Pagination
 
 Some methods of Octonode return paginated results. Check on GitHub which API methods are paginated.
