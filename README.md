@@ -48,3 +48,36 @@ client.post('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.put('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.del('/repos/SamyPesse/octocat.js', { /* body parameters */})
 ```
+
+#### Repositories
+
+```js
+var repo = client.repo('SamyPesse/octocat.js')
+
+// Get details about the repository
+repo.info().then(function(infos) { ... });
+```
+
+#### Releases
+
+```js
+var release = repo.release('1');
+
+// Get details about the release
+release.info().then(function(infos) { ... });
+```
+
+#### Releases Assets
+
+```js
+var asset = release.asset('1');
+
+// Get details about the release
+asset.info().then(function(infos) { ... });
+
+// Download the asset to a file
+asset.download('./myfile.zip').then(function() { ... });
+
+// Download the asset to a stream
+asset.download(stream).then(function() { ... });
+```
