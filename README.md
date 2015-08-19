@@ -2,6 +2,10 @@
 
 Javascript library to access the GitHub API.
 
+- :sparkles: Promise based
+- :sparkles: Support GitHub Enterprise
+
+
 ### Installation
 
 ```
@@ -30,4 +34,17 @@ var client = new GitHub({
 var client = new GitHub({
     endpoint: "https:///github.mycompany.com"
 });
+```
+
+#### Direct API access
+
+All of these methods return promises.
+
+```js
+client.request('GET', '/repos/SamyPesse/octocat.js', { /* query/body parameters */})
+
+client.get('/repos/SamyPesse/octocat.js', { /* query parameters */})
+client.post('/repos/SamyPesse/octocat.js', { /* body parameters */})
+client.put('/repos/SamyPesse/octocat.js', { /* body parameters */})
+client.del('/repos/SamyPesse/octocat.js', { /* body parameters */})
 ```
