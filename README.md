@@ -108,6 +108,9 @@ user.repos().then(function(page) { ... });
 // Get a single repository
 var repo = client.repo('SamyPesse/octocat.js');
 repo.info().then(function(infos) { ... });
+
+// Delete the repository
+repo.destroy()
 ```
 
 #### Issues
@@ -164,7 +167,10 @@ release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
 // Edit a release
 release.edit({
     name: "Test"
-});
+})
+
+// Delete the release
+release.destroy()
 ```
 
 #### Releases Assets
@@ -182,6 +188,9 @@ asset.download('./myfile.zip').then(function() { ... });
 
 // Download the asset to a stream
 asset.download(stream).then(function() { ... });
+
+// Delete the asset
+asset.destroy()
 ```
 
 #### Rate Limiting
