@@ -65,6 +65,10 @@ var release = repo.release('1');
 
 // Get details about the release
 release.info().then(function(infos) { ... });
+
+// Upload a file/stream to the release
+release.upload('./myfile.zip').then(function() { ... });
+release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
 ```
 
 #### Releases Assets
