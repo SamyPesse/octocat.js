@@ -125,6 +125,22 @@ issue.edit({
 })
 ```
 
+#### Organization
+
+```js
+// List organizations of an user
+user.orgs().then(function(orgs) { ... });
+
+// Get a single organization
+var org = client.org('GitbookIO');
+org.info().then(function(infos) { ... });
+
+// Edit the organization
+org.edit({
+    name: "The new name"
+})
+```
+
 #### Releases
 
 ```js
