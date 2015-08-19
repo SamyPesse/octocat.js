@@ -4,7 +4,7 @@ Javascript library to access the GitHub API.
 
 - :sparkles: Promise based
 - :sparkles: Support GitHub Enterprise
-
+- :sparkles: Easy handling of paginated results
 
 ### Installation
 
@@ -49,6 +49,16 @@ client.put('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.del('/repos/SamyPesse/octocat.js', { /* body parameters */})
 ```
 
+#### Pagination
+
+Some methods of Octonode return paginated results. Check on GitHub which API methods are paginated.
+
+These methods return a `Page` object:
+
+- `page.current` contains the list of results in the current page
+- `page.next()` update with the results of the next page (Promised)
+- `page.prev()` update with the results of the previous page (Promised)
+
 #### Repositories
 
 ```js
@@ -56,17 +66,20 @@ var repo = client.repo('SamyPesse/octocat.js')
 
 // Get details about the repository
 repo.info().then(function(infos) { ... });
+
 ```
 
 #### Releases
 
 ```js
-var release = repo.release('1');
+// List releases of a repository
+repo.releases().then(function(assets) { ... });
 
 // Get details about the release
+var release = repo.release('1');
 release.info().then(function(infos) { ... });
 
-// Upload a file/stream to the release
+// Upload a new asset as file/stream
 release.upload('./myfile.zip').then(function() { ... });
 release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
 ```
@@ -74,9 +87,11 @@ release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
 #### Releases Assets
 
 ```js
-var asset = release.asset('1');
+// List assets of a release
+release.assets().then(function(assets) { ... });
 
 // Get details about the release
+var asset = release.asset('1');
 asset.info().then(function(infos) { ... });
 
 // Download the asset to a file
