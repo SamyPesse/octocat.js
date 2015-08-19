@@ -75,7 +75,7 @@ Some methods of Octonode return paginated results. Check on GitHub which API met
 
 These methods return a `Page` object:
 
-- `page.current` contains the list of results in the current page
+- `page.list` contains the list of results in the current page
 - `page.next()` update with the results of the next page (Promised)
 - `page.prev()` update with the results of the previous page (Promised)
 
