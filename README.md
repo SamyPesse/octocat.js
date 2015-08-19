@@ -45,6 +45,7 @@ client.request('GET', '/repos/SamyPesse/octocat.js', { /* query/body parameters 
 
 client.get('/repos/SamyPesse/octocat.js', { /* query parameters */})
 client.post('/repos/SamyPesse/octocat.js', { /* body parameters */})
+client.patch('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.put('/repos/SamyPesse/octocat.js', { /* body parameters */})
 client.del('/repos/SamyPesse/octocat.js', { /* body parameters */})
 ```
@@ -88,6 +89,11 @@ user.info().then(function(infos) { ... });
 
 // Get the authenticated user
 var user = client.me();
+
+// Edit the authenticated user
+user.edit({
+    name: "New Name"
+})
 ```
 
 #### Repositories
@@ -154,6 +160,11 @@ release.info().then(function(infos) { ... });
 // Upload a new asset as file/stream
 release.upload('./myfile.zip').then(function() { ... });
 release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
+
+// Edit a release
+release.edit({
+    name: "Test"
+});
 ```
 
 #### Releases Assets
