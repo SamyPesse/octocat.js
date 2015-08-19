@@ -59,12 +59,28 @@ These methods return a `Page` object:
 - `page.next()` update with the results of the next page (Promised)
 - `page.prev()` update with the results of the previous page (Promised)
 
+#### Users
+
+```js
+// Get a single user
+var user = client.user('SamyPesse');
+user.info().then(function(infos) { ... });
+
+// Get the authenticated user
+var user = client.me();
+```
+
 #### Repositories
 
 ```js
-var repo = client.repo('SamyPesse/octocat.js')
+// Get public repositories (paginated)
+client.repos().then(function(page) { ... });
 
-// Get details about the repository
+// List user repositories
+user.repos().then(function(page) { ... });
+
+// Get a single repository
+var repo = client.repo('SamyPesse/octocat.js');
 repo.info().then(function(infos) { ... });
 
 ```
