@@ -136,3 +136,12 @@ asset.download('./myfile.zip').then(function() { ... });
 // Download the asset to a stream
 asset.download(stream).then(function() { ... });
 ```
+
+#### Rate Limiting
+
+You can also check your rate limit status by calling the following.
+
+```js
+client.limit().then(function(rate) { ... })
+```
+
