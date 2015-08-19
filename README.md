@@ -102,7 +102,27 @@ user.repos().then(function(page) { ... });
 // Get a single repository
 var repo = client.repo('SamyPesse/octocat.js');
 repo.info().then(function(infos) { ... });
+```
 
+#### Issues
+
+```js
+// List issues for a repository
+repo.issues().then(function(page) { ... });
+
+// Create an issue in a repository
+repo.createIssue({
+    title: "An awesome issue"
+});
+
+// Get a single issue in a repository
+var issue = repo.issue(200);
+issue.info().then(function(infos) { ... });
+
+// Edit an issue
+issue.edit({
+    title: "New Title"
+})
 ```
 
 #### Releases

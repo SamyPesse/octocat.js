@@ -12,5 +12,14 @@ describe('Issues', function() {
         });
     });
 
+    it('should correctly list issues for a repository', function() {
+        var repo = client.repo('GitbookIO/gitbook')
+
+        return repo.issues()
+        .then(function(page) {
+
+        });
+    });
+
 });
 
