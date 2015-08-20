@@ -1,5 +1,8 @@
 # octocat.js
 
+[![npm version](https://badge.fury.io/js/octocat.svg)](http://badge.fury.io/js/octocat)
+[![Build Status](https://travis-ci.org/SamyPesse/octocat.js.png?branch=master)](https://travis-ci.org/SamyPesse/octocat.js)
+
 Javascript library to access the GitHub API.
 
 - :sparkles: Promise based
