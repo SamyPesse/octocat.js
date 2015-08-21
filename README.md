@@ -163,10 +163,6 @@ repo.releases().then(function(assets) { ... });
 var release = repo.release('1');
 release.info().then(function(infos) { ... });
 
-// Upload a new asset as file/stream
-release.upload('./myfile.zip').then(function() { ... });
-release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
-
 // Edit a release
 release.edit({
     name: "Test"
@@ -174,6 +170,36 @@ release.edit({
 
 // Delete the release
 release.destroy()
+```
+
+#### Uploading assets
+
+```js
+// Upload a new asset as file/stream
+release.upload('./myfile.zip').then(function() { ... });
+release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
+```
+
+`release.upload` will also notify with progress:
+
+```js
+release.upload('./myfile.zip')
+.progress(function(p) {
+    /*
+    { percentage: 96.61881065572815,
+      transferred: 45088768,
+      length: 46666656,
+      remaining: 1577888,
+      eta: 0,
+      runtime: 11,
+      delta: 196608,
+      speed: 3920762.434782609 }
+    */
+})
+.then(function() {
+
+});
+
 ```
 
 #### Releases Assets
