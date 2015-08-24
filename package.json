@@ -11,7 +11,7 @@
     "dependencies": {
         "q": "1.4.1",
         "lodash": "3.10.1",
-        "request": "2.61.0",
+        "request": "2.60.0",
         "js-base64": "2.1.9",
         "mime-types": "2.1.4",
         "progress-stream": "1.1.1"
