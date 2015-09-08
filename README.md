@@ -82,6 +82,7 @@ These methods return a `Page` object:
 - `page.list` contains the list of results in the current page
 - `page.next()` update with the results of the next page (Promised)
 - `page.prev()` update with the results of the previous page (Promised)
+- `page.hasNext()` and `page.hasPrev()`
 
 #### Users
 
