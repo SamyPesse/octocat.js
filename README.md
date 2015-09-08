@@ -153,6 +153,25 @@ org.edit({
 })
 ```
 
+#### Webhooks
+
+```js
+// List hooks for a repository
+repo.hooks().then(function(hooks) { ... });
+
+// Get single hook
+var hook = repo.hook('1');
+hook.info().then(function(infos) { ... });
+
+// Edit a hook
+hook.edit({
+    name: "Test"
+})
+
+// Delete the hook
+hook.destroy()
+```
+
 #### Releases
 
 ```js
