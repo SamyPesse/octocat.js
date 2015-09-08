@@ -222,6 +222,22 @@ asset.download(stream).then(function() { ... });
 asset.destroy()
 ```
 
+#### Authorization for a specific app
+
+```js
+var app = client.application('clientId');
+var token = app.token('access_token');
+
+// Check an authorization
+token.info().then(function(infos) { ... });
+
+// Reset an authorization
+token.reset().then(function() { ... });
+
+// Delete an authorization
+token.destroy().then(function() { ... });
+```
+
 #### Rate Limiting
 
 You can also check your rate limit status by calling the following.
