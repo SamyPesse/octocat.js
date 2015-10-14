@@ -154,13 +154,34 @@ org.edit({
 })
 ```
 
+#### Commits
+
+```js
+// List commits for a repository
+repo.commits().then(function(commits) { ... });
+
+// Get a single commit
+var commit = repo.commit('6dcb09b5b57875f334f61aebed695e2e4193db5e');
+commit.info().then(function(infos) { ... });
+```
+
+#### Statuses
+
+```js
+// Create a Status
+repo.createStatus({ ... }).then(function() { ... });
+
+// List Statuses for a specific Ref
+commit.statuses().then(function(statuses) { ... });
+```
+
 #### Webhooks
 
 ```js
 // List hooks for a repository
 repo.hooks().then(function(hooks) { ... });
 
-// Get single hook
+// Get a single hook
 var hook = repo.hook('1');
 hook.info().then(function(infos) { ... });
 
