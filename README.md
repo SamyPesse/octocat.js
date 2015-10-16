@@ -263,6 +263,19 @@ asset.download(stream).then(function() { ... });
 asset.destroy()
 ```
 
+#### Emails
+
+```js
+// List email addresses
+client.userEmails().then(function(emails) { ... });
+
+// Add email address(es)
+client.addUserEmails([ 'octocat@github.com' ]).then(function() { ... });
+
+// Delete email address(es)
+client.deleteUserEmails([ 'octocat@github.com' ]).then(function() { ... });
+```
+
 #### Authorization for a specific app
 
 ```js
