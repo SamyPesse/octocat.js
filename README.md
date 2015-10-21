@@ -169,7 +169,7 @@ commit.info().then(function(infos) { ... });
 
 ```js
 // Create a Status
-repo.createStatus({ ... }).then(function() { ... });
+repo.createStatus('sha', { ... }).then(function() { ... });
 
 // List Statuses for a specific Ref
 commit.statuses().then(function(statuses) { ... });
