@@ -1,6 +1,6 @@
 {
     "name": "octocat",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "description": "GitHub API client in Javascript (Node.js and Browser)",
     "author": "Samy Pesse <samypesse@gmail.com>",
     "main": "./lib/index.js",
