@@ -5,9 +5,9 @@
 
 Javascript library to access the GitHub API.
 
-- :sparkles: Promise based
-- :sparkles: Support GitHub Enterprise
-- :sparkles: Easy handling of paginated results
+- ✨ Promise based
+- ✨ Support GitHub Enterprise
+- ✨ Easy handling of paginated results
 
 ### Installation
 
