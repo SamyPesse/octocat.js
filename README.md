@@ -175,6 +175,17 @@ repo.createStatus('sha', { ... }).then(function() { ... });
 commit.statuses().then(function(statuses) { ... });
 ```
 
+#### Branches
+
+```js
+// List branches for a repository
+repo.branches().then(function(branches) { ... });
+
+// Get a single branch
+var branch = repo.branch('master');
+branch.info().then(function(infos) { ... });
+```
+
 #### Webhooks
 
 ```js
