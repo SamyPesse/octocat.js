@@ -186,6 +186,13 @@ var branch = repo.branch('master');
 branch.info().then(function(infos) { ... });
 ```
 
+#### Tags
+
+```js
+// List tags for a repository
+repo.tags().then(function(tags) { ... });
+```
+
 #### Webhooks
 
 ```js
