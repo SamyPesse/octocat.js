@@ -103,6 +103,9 @@ user.edit({
 #### Repositories
 
 ```js
+// Create a new repository
+client.createRepo({ ... }).then(function() { });
+
 // Get public repositories (paginated)
 client.repos().then(function(page) { ... });
 
@@ -152,6 +155,9 @@ org.info().then(function(infos) { ... });
 org.edit({
     name: "The new name"
 })
+
+// Create a new repository
+org.createRepo({ ... }).then(function() { });
 ```
 
 #### Commits
