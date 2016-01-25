@@ -116,6 +116,12 @@ user.repos().then(function(page) { ... });
 var repo = client.repo('SamyPesse/octocat.js');
 repo.info().then(function(infos) { ... });
 
+// Compare two commits
+repo.compare('master', 'dev').then(function(infos) { ... });
+
+// Perform a merge
+repo.merge({ base: 'master', head: 'dev' }).then(function() { ... });
+
 // Delete the repository
 repo.destroy()
 ```
