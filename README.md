@@ -162,6 +162,9 @@ org.edit({
     name: "The new name"
 })
 
+// List members of the organization
+org.members().then(function(page) { ... });
+
 // Create a new repository
 org.createRepo({ ... }).then(function() { });
 ```
