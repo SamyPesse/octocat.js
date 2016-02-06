@@ -83,6 +83,7 @@ These methods return a `Page` object:
 - `page.next()` update with the results of the next page (Promised)
 - `page.prev()` update with the results of the previous page (Promised)
 - `page.hasNext()` and `page.hasPrev()`
+- `page.all()` return all the results by recursively calling the API
 
 #### Users
 
