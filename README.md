@@ -326,6 +326,30 @@ token.reset().then(function() { ... });
 token.destroy().then(function() { ... });
 ```
 
+#### Git Data
+
+###### Reference
+
+```js
+var ref = repo.gitRef('heads/master');
+
+// Get a reference
+ref.info().then(function(infos) { ... });
+
+// Edit / Delete
+ref.edit({ ... }).then(function() { ... });
+ref.destroy().then(function() { ... });
+```
+
+###### Commit
+
+```js
+var commit = repo.gitCommit('<sha>');
+
+// Get a commit
+commit.info().then(function(infos) { ... });
+```
+
 #### Rate Limiting
 
 You can also check your rate limit status by calling the following.
