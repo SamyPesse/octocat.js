@@ -12,7 +12,7 @@ Javascript library to access the GitHub API.
 ### Installation
 
 ```
-$ npm install octocat
+$ npm install octocat --save
 ```
 
 ### Usage
