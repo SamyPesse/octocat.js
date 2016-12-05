@@ -1,27 +1,28 @@
 {
-    "name": "octocat",
-    "version": "0.11.0",
-    "description": "GitHub API client in Javascript (Node.js and Browser)",
-    "author": "Samy Pesse <samypesse@gmail.com>",
-    "main": "./lib/index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/SamyPesse/octocat.js.git"
-    },
-    "dependencies": {
-        "q": "1.4.1",
-        "lodash": "3.10.1",
-        "request": "2.64.0",
-        "js-base64": "2.1.9",
-        "mime-types": "2.1.4",
-        "progress-stream": "1.1.1"
-    },
-    "devDependencies": {
-        "mocha": "1.18.2",
-        "should": "7.0.4"
-    },
-    "scripts": {
-        "test": "node_modules/.bin/mocha --reporter spec --timeout 15000"
-    },
-    "license": "Apache-2.0"
+  "name": "octocat",
+  "version": "0.11.0",
+  "description": "GitHub API client in Javascript (Node.js and Browser)",
+  "author": "Samy Pesse <samypesse@gmail.com>",
+  "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamyPesse/octocat.js.git"
+  },
+  "dependencies": {
+    "js-base64": "2.1.9",
+    "lodash": "3.10.1",
+    "mime-types": "2.1.4",
+    "progress-stream": "1.1.1",
+    "q": "1.4.1",
+    "request": "2.64.0",
+    "url-join": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "1.18.2",
+    "should": "7.0.4"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec --timeout 15000"
+  },
+  "license": "Apache-2.0"
 }
