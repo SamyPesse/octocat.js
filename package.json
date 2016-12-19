@@ -9,6 +9,7 @@
     "url": "https://github.com/SamyPesse/octocat.js.git"
   },
   "dependencies": {
+    "is-absolute-url": "^2.1.0",
     "js-base64": "2.1.9",
     "lodash": "3.10.1",
     "mime-types": "2.1.4",

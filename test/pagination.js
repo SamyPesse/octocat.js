@@ -8,6 +8,9 @@ describe('Pagination', function() {
             page.should.have.property('list');
             page.should.have.property('next');
             page.should.have.property('prev');
+
+            return page.next().then(function(page) {
+            });
         });
     });
 
