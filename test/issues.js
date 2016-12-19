@@ -21,7 +21,7 @@ describe('Issues', function() {
             page.should.have.property('next');
             page.should.have.property('prev');
 
-            return page.next().then((page) => {
+            return page.next().then(function (page) {
             });
         });
     });
