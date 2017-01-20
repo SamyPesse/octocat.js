@@ -1,18 +1,17 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Pagination', function() {
+describe('Pagination', () => {
 
-    it('should correctly return a Page object', function() {
+    it('should correctly return a Page object', () => {
         return client.repos()
-        .then(function(page) {
-            page.should.have.property('list');
-            page.should.have.property('next');
-            page.should.have.property('prev');
+        .then((page) => {
+            expect(page).toIncludeKey('list');
+            expect(page).toIncludeKey('next');
+            expect(page).toIncludeKey('prev');
 
-            return page.next().then(function(page) {
-            });
+            return page.next();
         });
     });
 
 });
-

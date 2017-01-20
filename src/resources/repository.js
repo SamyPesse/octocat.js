@@ -13,7 +13,7 @@ const GitBlob = require('./git_blob');
  * @type {Resource}
  */
 class Repository extends Resource {
-    constructor(client, id) {
+    constructor(client, github, id) {
         super(client);
         this.id = id;
     }
@@ -39,35 +39,35 @@ class Repository extends Resource {
 
     // Get details about the repository
     info() {
-        return this.client.get(this.url())
+        return this.get('/')
             .get('body');
     }
 
     // Return list of releases
     releases(opts) {
-        return this.page({ url: this.url('releases') }, opts);
+        return this.page('releases', {}, opts);
     }
 
     // Return list of issues
     issues(opts) {
-        return this.page({ url: this.url('issues') }, opts);
+        return this.page('issues', {}, opts);
     }
 
     // Return list of hooks
     hooks(opts) {
-        return this.page({ url: this.url('hooks') }, opts);
+        return this.page('hooks', {}, opts);
     }
 
     // Return list of branches
     // https://developer.github.com/v3/repos/#list-branches
     branches(opts) {
-        return this.page({ url: this.url('branches') }, opts);
+        return this.page('branches', {}, opts);
     }
 
     // List Tags
     // https://developer.github.com/v3/repos/#list-tags
     tags(opts) {
-        return this.page({ url: this.url('tags') }, opts);
+        return this.page('tags', {}, opts);
     }
 
     // Compare two commits

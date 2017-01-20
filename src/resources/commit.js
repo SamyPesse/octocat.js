@@ -36,10 +36,8 @@ class Commit extends Resource {
      *
      * @return {Pagination}
      */
-    statuses(opts) {
-        return this.page({
-            url: this.url('statuses')
-        }, opts);
+    statuses(options) {
+        return this.page('statuses', {}, options);
     }
 }
 

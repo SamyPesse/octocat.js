@@ -1,22 +1,22 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Requests', function() {
+describe('Requests', () => {
 
-    it('should correctly make a GET request', function() {
+    it('should correctly make a GET request', () => {
         return client.get('/repos/GitbookIO/gitbook')
-        .then(function(response) {
-
+        .then((response) => {
+            expect(response.body).toBeAn('object');
+            expect(response.headers).toBeAn('object');
         });
     });
 
-    it('should be able to get rate limits', function() {
+    it('should be able to get rate limits', () => {
         return client.limit()
-        .then(function(rate) {
-            rate.should.have.property('limit');
-            rate.should.have.property('remaining');
-            rate.should.have.property('reset');
+        .then((rate) => {
+            expect(rate.limit).toBeAn('number');
+            expect(rate.remaining).toBeAn('number');
         });
     });
 
 });
-

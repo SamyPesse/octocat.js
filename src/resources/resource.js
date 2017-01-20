@@ -1,4 +1,5 @@
 const joinURL = require('url-join');
+const Page = require('../Page');
 
 /**
  * Resource from the API.
@@ -7,6 +8,10 @@ const joinURL = require('url-join');
 class Resource {
     constructor(client) {
         this.client = client;
+
+        if (!client) {
+            throw new Error('Resource should create with a client as first argument');
+        }
     }
 
     /**
@@ -40,17 +45,26 @@ class Resource {
      * @return {Resource}
      */
     resource(Type, ...args) {
-        return this.client.resource(Type, this, ...args);
+        return new Type(this.client, this, ...args);
     }
 
     /**
-     * Return a pagination.
-     * @param  {Object} request
+     * Return a pagination (already fetched).
+     *
+     * @param  {String} uri
+     * @param  {Object} params
      * @param  {Object} options
-     * @return {Page}
+     * @return {Promise<Page>}
      */
-    page(request, options) {
+    page(uri, params, options) {
+        const page = new Page(
+            this.client,
+            this.url(uri),
+            params,
+            options
+        );
 
+        return page.fetch();
     }
 }
 

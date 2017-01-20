@@ -1,14 +1,19 @@
 const Promise = require('q');
 const is = require('is');
+const url = require('url');
+const querystring = require('querystring');
 const base64 = require('js-base64').Base64;
 const request = require('request');
+const isAbsoluteUrl = require('is-absolute-url');
+const joinURL = require('url-join');
 
 const GitHubError = require('./error');
 
 /**
- * Client for the API.
+ * Client for the GitHub API.
+ * @type {Class}
  */
-class GitHub {
+class APIClient {
     constructor(opts = {}) {
         this.opts = {
             // Endpoint for the API
@@ -42,6 +47,31 @@ class GitHub {
         else {
             return undefined;
         }
+    }
+
+    /**
+     * Get the API URL to request.
+     * @param  {String} httpMethod
+     * @param  {String} method
+     * @param  {Object} params
+     * @return {String}
+     */
+    url(httpMethod, method, params) {
+        let uri = isAbsoluteUrl(method) ? method : joinURL(this.opts.endpoint, method);
+
+        const parsedUrl = url.parse(uri);
+        const parsedParams = querystring.parse(parsedUrl.query);
+
+        uri = url.format(parsedUrl);
+        if (httpMethod == 'GET') {
+            parsedUrl.search = '?' + querystring.stringify({
+                ...params,
+                ...parsedParams
+            });
+            uri = url.format(parsedUrl);
+        }
+
+        return uri;
     }
 
     /**
@@ -96,7 +126,7 @@ class GitHub {
         httpMethod = httpMethod.toUpperCase();
 
         const d = Promise.defer();
-        const uri = this.getURL(httpMethod, method, params);
+        const uri = this.url(httpMethod, method, params);
 
         // Build request
         const r = request(
@@ -108,8 +138,7 @@ class GitHub {
                 headers: {
                     'User-Agent': this.opts.userAgent,
                     'Authorization': this.getAuthorizationHeader(),
-                    ...opts.headers,
-                    ...(opts.request.headers || {})
+                    ...opts.headers
                 }
             },
             (err, response, body) => {
@@ -135,27 +164,17 @@ class GitHub {
      * HTTP methods
      */
     get(uri, params, opts) {
-        return this.request('GET', this.url(uri), params);
+        return this.request('GET', uri, params);
     }
     post(uri, params, opts) {
-        return this.client.post('POST', this.url(uri), params);
+        return this.client.post('POST', uri, params);
     }
     patch(uri, params, opts) {
-        return this.client.patch('PATCH', this.url(uri), params);
+        return this.client.patch('PATCH', uri, params);
     }
     del(uri, params, opts) {
-        return this.client.del('DELETE', this.url(uri), params);
-    }
-
-    /**
-     * Create a subresource for this client.
-     * @param {ResourceClass} Type
-     * @param {Mixed} ...args
-     * @return {Resource}
-     */
-    resource(Type, ...args) {
-        return new Type(this.client, ...args);
+        return this.client.del('DELETE', uri, params);
     }
 }
 
-module.exports = GitHub;
+module.exports = APIClient;

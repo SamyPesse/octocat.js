@@ -1,222 +1,72 @@
-var _ = require('lodash');
-var Q = require('q');
-var url = require('url');
-var join = require('url-join');
-var base64 = require('js-base64').Base64;
-var querystring = require('querystring');
-var request = require('request');
+const deprecate = require('deprecate');
 
-var GitHubError = require('./error');
-var model = require('./model');
-var Repository = require('./repository');
-var User = require('./user');
-var Organization = require('./organization');
-var Application = require('./application');
-var pagination = require('./pagination');
-var Installation = require('./installation');
-var isAbsoluteUrl = require('is-absolute-url');
+const Resource = require('./resources/resource');
+const Repository = require('./resources/repository');
+const User = require('./resources/user');
+const Organization = require('./resources/organization');
+const Application = require('./resources/application');
+const Installation = require('./resources/installation');
+const APIClient = require('./client');
 
-var GitHub = function(opts) {
-    if (!(this instanceof GitHub)) return new GitHub(opts);
-
-    this.opts = _.defaults(opts || {}, {
-        // Endpoint for the API
-        endpoint: 'https://api.github.com',
-
-        // User-Agent to use for requests
-        userAgent: 'octocat.js',
-
-        // Access token
-        token: null,
-
-        // Basic auth
-        username: null,
-        password: null,
-
-        // Request default options
-        request: {}
-    });
-
-    _.bindAll(this);
-};
-
-// Return the authorization header
-GitHub.prototype.getAuthorizationHeader = function() {
-    if (this.opts.token) {
-        return 'token '+this.opts.token;
-    } else if (this.opts.username) {
-        var token = _.compact([
-            this.opts.username,
-            this.opts.password
-        ]).join(':');
-
-        return 'Basic ' + base64.encode(token);
-    } else {
-        return undefined;
-    }
-};
-
-// Handle response from a request
-GitHub.prototype.onResponse = function(response, body, opts) {
-    opts = _.defaults(opts || {}, {
-        successOn: ['2XX']
-    });
-
-    var statusCode = response? response.statusCode : 0;
-    var statusType = Math.floor(statusCode/100)+'XX';
-
-    var success = _.some(opts.successOn, function(status) {
-        return (
-            (_.isString(status) && status == statusType)
-            || (status == statusCode)
-        );
-    });
-
-    // Try parsing body
-    if ((opts.json || !success) && _.isString(body)) {
-        try {
-            body = JSON.parse(body);
-        } catch(e) {}
+class GitHub extends Resource {
+    constructor(options) {
+        super(new APIClient(options));
     }
 
-    // Build result object
-    var result = {
-        statusCode: statusCode,
-        statusType: statusType,
-        headers: response? response.headers : {},
-        body: body
-    };
+    /**
+     * Resources
+     */
+    me() { return this.resource(User); }
+    repo(id) { return this.resource(Repository, id); }
+    user(id) { return this.resource(User, id); }
+    org(id) { return this.resource(Organization, id); }
+    app(id) { return this.resource(Application, id); }
+    installation() { return this.resource(Installation); }
 
-    if (!success) {
-        throw new GitHubError(result);
+    /**
+     * Return API limits
+     * @return {Promise<Number>}
+     */
+    limit() {
+        return this.get('/rate_limit')
+            .get('body')
+            .get('rate');
     }
 
-    return result;
-};
-
-// Basic API HTTP request
-GitHub.prototype.request = function(httpMethod, method, params, opts) {
-    var uri, r, that = this;
-    var d = Q.defer();
-
-    opts = _.defaults(opts || {}, {
-        headers: {},
-        json: true,
-        process: function(r) { }
-    });
-
-    httpMethod = httpMethod.toUpperCase();
-
-    uri = this.getURL(httpMethod, method, params);
-
-    // Build request
-    r = request(_.merge({
-        method: httpMethod,
-        uri: uri,
-        json: opts.json,
-        body: httpMethod != 'GET'? params : undefined,
-        headers: _.extend({
-            'User-Agent': this.opts.userAgent,
-            'Authorization': this.getAuthorizationHeader()
-        }, opts.headers)
-    }, this.opts.request), function(err, response, body) {
-        if (err) return d.reject(err);
-
-        try {
-            var result = that.onResponse(response, body, opts);
-            d.resolve(result);
-        } catch(e) {
-            d.reject(e);
-        }
-    });
-
-    opts.process(r);
-
-    return d.promise;
-};
-
-GitHub.prototype.get = _.partial(GitHub.prototype.request, 'GET');
-GitHub.prototype.patch = _.partial(GitHub.prototype.request, 'PATCH');
-GitHub.prototype.post = _.partial(GitHub.prototype.request, 'POST');
-GitHub.prototype.put = _.partial(GitHub.prototype.request, 'PUT');
-GitHub.prototype.del = _.partial(GitHub.prototype.request, 'DELETE');
-
-// Return API limits
-GitHub.prototype.limit = function() {
-    return this.get('/rate_limit')
-        .get('body')
-        .get('rate');
-};
-
-// Relations
-GitHub.prototype.repo = model.getter(Repository);
-GitHub.prototype.user = model.getter(User);
-GitHub.prototype.org = model.getter(Organization);
-GitHub.prototype.app = model.getter(Application);
-GitHub.prototype.installation = model.getter(Installation);
-
-// Get the API URL to request
-GitHub.prototype.getURL = function (httpMethod, method, params) {
-    var uri = isAbsoluteUrl(method) ? method : join(this.opts.endpoint, method);
-
-    var parsedUrl = url.parse(uri);
-    var parsedParams = querystring.parse(parsedUrl.query);
-
-    uri = url.format(parsedUrl);
-    if (httpMethod == 'GET') {
-        parsedUrl.search = '?' + querystring.stringify(_.extend({}, params, parsedParams));
-        uri = url.format(parsedUrl);
+    /**
+     * List all public repositories.
+     * https://developer.github.com/v3/repos/
+     *
+     * @param  {Object} options
+     * @return {Promise<Page>}
+     */
+    repos(options) {
+        return this.page('repositories', {}, options);
     }
 
-    return uri;
-};
+    // Create a new repository
+    // https://developer.github.com/v3/repos/#create
+    createRepo(info) {
+        deprecate('"github.addUserEmails" is deprecated, use "github.me().createRepo()"');
+        return this.post('/user/repos', info)
+            .get('body');
+    }
 
-// Get the authenticated user
-GitHub.prototype.me = function() {
-    return (new User(this));
-};
+    // Add email address(es)
+    // https://developer.github.com/v3/users/emails/#add-email-addresses
+    addUserEmails(emails) {
+        deprecate('"github.addUserEmails" is deprecated, use "github.me().addEmails()"');
+        return this.post('/user/emails', emails)
+            .get('body');
+    }
 
-// List all public repositories
-GitHub.prototype.repos = pagination(function() {
-    return {
-        url:'/repositories'
-    };
-});
-
-// List repositories that are accessible to the authenticated user.
-GitHub.prototype.userRepos = pagination(function() {
-    return {
-        url:'/user/repos'
-    };
-});
-
-// List email addresses for a user
-// https://developer.github.com/v3/users/emails/#list-email-addresses-for-a-user
-GitHub.prototype.userEmails = pagination(function() {
-    return {
-        url:'/user/emails'
-    };
-});
-
-// Create a new repository
-// https://developer.github.com/v3/repos/#create
-GitHub.prototype.createRepo = function(info) {
-    return this.post('/user/repos', info)
-        .get('body');
-};
-
-// Add email address(es)
-// https://developer.github.com/v3/users/emails/#add-email-addresses
-GitHub.prototype.addUserEmails = function(emails) {
-    return this.post('/user/emails', emails)
-        .get('body');
-};
-
-// Delete email address(es)
-// https://developer.github.com/v3/users/emails/#delete-email-addresses
-GitHub.prototype.deleteUserEmails = function(emails) {
-    return this.del('/user/emails', emails)
-        .get('body');
-};
+    // Delete email address(es)
+    // https://developer.github.com/v3/users/emails/#delete-email-addresses
+    deleteUserEmails(emails) {
+        deprecate('"github.deleteUserEmails" is deprecated, use "github.me().deleteEmails()"');
+        return this.del('/user/emails', emails)
+            .get('body');
+    }
+}
 
 module.exports = GitHub;

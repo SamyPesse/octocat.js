@@ -26,19 +26,16 @@ class Installation extends Resource {
      * @param  {String} userID?
      * @return {Authorization}
      */
-    repos(userID, opts) {
+    repos(userID, options = {}) {
         const params = {};
         if (userID) {
             params.user_id = userID;
         }
 
-        return this.page({
-            url: this.url('repositories'),
-            query: params,
-            opts: {
-                headers: DEFAULT_HEADERS
-            }
-        }, opts);
+        return this.page('repositories', params, {
+            ...options,
+            headers: DEFAULT_HEADERS
+        });
     }
 }
 

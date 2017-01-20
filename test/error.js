@@ -1,19 +1,19 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Error', function() {
+describe('Error', () => {
 
-    it('should correctly normalize an error', function() {
-        var repo = client.repo('GitbookIO/gitbook-nonexistant-repo')
+    it('should correctly normalize an error', () => {
+        const repo = client.repo('GitbookIO/gitbook-nonexistant-repo');
 
         return repo.info()
-        .then(function(details) {
+        .then((details) => {
             throw new Error('Should have returned an error');
-        }, function(err) {
-            err.name.should.equal('GitHubError');
-            err.message.should.equal('Not Found');
-            err.statusCode.should.equal(404);
+        }, (err) => {
+            expect(err.name).toEqual('GitHubError');
+            expect(err.message).toEqual('Not Found');
+            expect(err.statusCode).toEqual(404);
         });
     });
 
 });
-
