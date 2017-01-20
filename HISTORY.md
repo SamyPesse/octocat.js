@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 1.0.3
+
+- Fix option `request` for `GitHub` to provide custom HTTP request options
+
 ### 1.0.2
 
 - Fix require on linux
