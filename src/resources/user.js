@@ -14,17 +14,17 @@ class User extends Resource {
      * Return API endpoint for this user
      */
     url(...args) {
-        return super.url(this.id ? `users/${this.id}/` : 'user/', ...args);
+        return super.url(this.id ? `users/${this.id}` : 'user', ...args);
     }
     // Get a single user
     info() {
-        return this.get('/')
+        return this.get('')
             .get('body');
     }
 
     // Edit authenticated user
     edit(params) {
-        return this.patch('/', params)
+        return this.patch('', params)
             .get('body');
     }
 

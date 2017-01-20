@@ -17,7 +17,7 @@ class Authorization extends Resource {
      * Return API endpoint for this authorization
      */
     url(...args) {
-        return this.app.url(`tokens/${this.token}/`, ...args);
+        return this.app.url(`tokens/${this.token}`, ...args);
     }
 
     /**
@@ -35,7 +35,7 @@ class Authorization extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.client.get(this.url())
+        return this.get('')
             .get('body');
     }
 
@@ -45,7 +45,7 @@ class Authorization extends Resource {
      * @return {Promise<JSON>}
      */
     reset() {
-        return this.client.post(this.url())
+        return this.post('')
             .get('body');
     }
 
@@ -55,7 +55,7 @@ class Authorization extends Resource {
      * @return {Promise<JSON>}
      */
     destroy() {
-        return this.client.del(this.url())
+        return this.del('')
             .get('body');
     }
 }

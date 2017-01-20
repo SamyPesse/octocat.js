@@ -17,7 +17,7 @@ class Commit extends Resource {
      * Return API endpoint for this commit.
      */
     url(...args) {
-        return this.repo.url(`commits/${this.sha}/`, ...args);
+        return this.repo.url(`commits/${this.sha}`, ...args);
     }
 
     /**
@@ -26,7 +26,7 @@ class Commit extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.client.get(this.url())
+        return this.get('')
             .get('body');
     }
 

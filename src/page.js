@@ -30,7 +30,7 @@ class Page {
         return this.client.get(
             this.url,
             {
-                ...this.options,
+                ...this.params,
                 page, per_page
             },
             { headers }

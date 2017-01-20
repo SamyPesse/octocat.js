@@ -8,7 +8,7 @@ describe('Repository', () => {
 
         return repo.info()
         .then((details) => {
-            expect(details.id).toBe('GitbookIO/gitbook');
+            expect(details.id).toBe(18280236);
         });
     });
 

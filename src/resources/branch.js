@@ -17,7 +17,7 @@ class Branch extends Resource {
      * Return API endpoint for this branch
      */
     url(...args) {
-        return this.repo.url(`branches/${this.ref}/`, ...args);
+        return this.repo.url(`branches/${this.ref}`, ...args);
     }
 
     /**
@@ -26,7 +26,7 @@ class Branch extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.client.get(this.url())
+        return this.get('')
             .get('body');
     }
 }

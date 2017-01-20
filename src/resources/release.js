@@ -24,14 +24,14 @@ class Release extends Resource {
      * Return API endpoint for this asset.
      */
     url(...args) {
-        return this.repo.url(`releases/${this.id}/`, ...args);
+        return this.repo.url(`releases/${this.id}`, ...args);
     }
 
     // Get details about the release
     info() {
         const that = this;
 
-        return this.get('/')
+        return this.get('')
             .get('body')
             .tap((infos) => {
                 that._infos = infos;
@@ -40,7 +40,7 @@ class Release extends Resource {
 
     // Edit this release
     edit(params) {
-        return this.client.patch(this.url(), params)
+        return this.patch('', params)
             .get('body');
     }
 

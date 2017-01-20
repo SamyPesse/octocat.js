@@ -15,19 +15,19 @@ class Organization extends Resource {
      * Return API endpoint for this organization
      */
     url(...args) {
-        return super.url(`orgs/${this.id}/`, ...args);
+        return super.url(`orgs/${this.id}`, ...args);
     }
 
     // Get a single organization
     info() {
-        return this.get('/')
+        return this.get('')
             .get('body');
     }
 
 
     // Edit this organization
     edit(params) {
-        return this.patch('/', params)
+        return this.patch('', params)
             .get('body');
     }
 

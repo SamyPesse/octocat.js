@@ -17,7 +17,7 @@ class GitBlob extends Resource {
      * Return API endpoint for this blob.
      */
     url(...args) {
-        return this.repo.url(`git/blobs/${this.sha}/`, ...args);
+        return this.repo.url(`git/blobs/${this.sha}`, ...args);
     }
 
     /**
@@ -26,7 +26,7 @@ class GitBlob extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.client.get(this.url())
+        return this.get('')
             .get('body');
     }
 }

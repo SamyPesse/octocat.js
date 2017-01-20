@@ -22,7 +22,7 @@ class Repository extends Resource {
      * Return API endpoint for this application
      */
     url(...args) {
-        return super.url(`repos/${this.id}/`, ...args);
+        return super.url(`repos/${this.id}`, ...args);
     }
 
     /**
@@ -39,7 +39,7 @@ class Repository extends Resource {
 
     // Get details about the repository
     info() {
-        return this.get('/')
+        return this.get('')
             .get('body');
     }
 
@@ -112,7 +112,7 @@ class Repository extends Resource {
 
     // Remove the repository
     destroy() {
-        return this.client.del(this.url());
+        return this.del('');
     }
 
 }

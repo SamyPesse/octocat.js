@@ -17,7 +17,7 @@ class GitRef extends Resource {
      * Return API endpoint for this ref.
      */
     url(...args) {
-        return this.repo.url(`git/refs/${this.name}/`, ...args);
+        return this.repo.url(`git/refs/${this.name}`, ...args);
     }
 
     /**
@@ -26,7 +26,7 @@ class GitRef extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.get('/')
+        return this.get('')
             .get('body');
     }
 
@@ -37,7 +37,7 @@ class GitRef extends Resource {
      * @return {Promise<JSON>}
      */
     edit(params) {
-        return this.patch('/', params)
+        return this.patch('', params)
             .get('body');
     }
 
@@ -47,7 +47,7 @@ class GitRef extends Resource {
      * @return {Promise<JSON>}
      */
     destroy() {
-        return this.del()
+        return this.del('')
             .get('body');
     }
 }

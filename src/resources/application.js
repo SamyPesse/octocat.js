@@ -15,7 +15,7 @@ class Application extends Resource {
      * Return API endpoint for this application
      */
     url(...args) {
-        return super.url(`applications/${this.id}/`, ...args);
+        return super.url(`applications/${this.id}`, ...args);
     }
 
     /**

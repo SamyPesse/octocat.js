@@ -17,7 +17,7 @@ class Hook extends Resource {
      * Return API endpoint for this hook.
      */
     url(...args) {
-        return this.repo.url(`hooks/${this.id}/`, ...args);
+        return this.repo.url(`hooks/${this.id}`, ...args);
     }
 
     /**
@@ -26,7 +26,7 @@ class Hook extends Resource {
      * @return {Promise<JSON>}
      */
     info() {
-        return this.get('/')
+        return this.get('')
             .get('body');
     }
 
@@ -37,7 +37,7 @@ class Hook extends Resource {
      * @return {Promise<JSON>}
      */
     edit(params) {
-        return this.patch('/', params)
+        return this.patch('', params)
             .get('body');
     }
 
@@ -47,7 +47,7 @@ class Hook extends Resource {
      * @return {Promise<JSON>}
      */
     destroy() {
-        return this.del()
+        return this.del('')
             .get('body');
     }
 }
