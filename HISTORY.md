@@ -1,0 +1,9 @@
+# Release notes
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+### 1.0.0
+
+- Switch to ES 6 and Babel
+- Fix error message for `GitHubError`
+- Deprecate method `client.createRepo`, `client.addUserEmails`, `client.deleteUserEmails`, use `client.me().createRepo(...)` instead
