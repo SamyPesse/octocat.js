@@ -169,13 +169,13 @@ class APIClient {
         return this.request('GET', uri, params);
     }
     post(uri, params, opts) {
-        return this.client.post('POST', uri, params);
+        return this.request('POST', uri, params);
     }
     patch(uri, params, opts) {
-        return this.client.patch('PATCH', uri, params);
+        return this.request('PATCH', uri, params);
     }
     del(uri, params, opts) {
-        return this.client.del('DELETE', uri, params);
+        return this.request('DELETE', uri, params);
     }
 }
 
