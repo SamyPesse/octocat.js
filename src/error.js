@@ -1,27 +1,51 @@
-var _ = require('lodash');
-var util = require('util');
+const is = require('is');
 
-function GitHubError(opts) {
-    Error.captureStackTrace(this, this.constructor);
+/**
+ * API error object.
+ * @type {Class}
+ */
+class GitHubError extends Error {
+    constructor(message) {
+        super(message);
 
-    opts = _.defaults(opts || {}, {
-        statusCode: 0,
-        body: {}
-    });
+        this.name = this.constructor.name;
+        this.message = message;
+        this.statusCode = 0;
+        this.statusType = '0xx';
+        this.response = null;
 
-    this.name = 'GitHubError';
-    this.message = "Error "+opts.statusCode;
-    this.statusCode = opts.statusCode
-    this.result = opts;
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(this, this.constructor);
+        } else {
+            this.stack = (new Error(message)).stack;
+        }
+    }
 
-    var body = opts.body;
-    if (_.isObject(body) && body.message) {
-        this.message = body.message || this.message;
-        this.documentationUrl = body.documentation_url;
-        this.errors = body.errors || [];
+    get code() {
+        return this.statusCode;
+    }
+
+    /**
+     * Create an error object for a fetch response.
+     * @param  {Response} response
+     * @return {GitHubError} error
+     */
+    static createForResponse(opts) {
+        const err = new GitHubError(`Error ${opts.statusCode}`);
+        err.statusCode = opts.statusCode;
+        err.statusType = opts.statusType;
+        err.response = opts.response;
+        err.body = opts.body;
+        err.headers = opts.headers;
+
+        if (is.object(err.body) && err.body.message) {
+            err.message = err.body.message || err.message;
+            err.documentationUrl = err.body.documentation_url;
+            err.errors = err.body.errors || [];
+        }
+
+        return err;
     }
 }
-util.inherits(GitHubError, Error);
-
 
 module.exports = GitHubError;
