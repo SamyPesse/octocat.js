@@ -1,5 +1,5 @@
 const joinURL = require('url-join');
-const Page = require('../Page');
+const Page = require('../page');
 
 /**
  * Resource from the API.
