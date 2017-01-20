@@ -7,6 +7,7 @@ const querystring = require('querystring');
 const progress = require('progress-stream');
 
 const Resource = require('./resource');
+const ReleaseAsset = require('./release_asset');
 
 /**
  * Model to represent a release.
@@ -26,6 +27,8 @@ class Release extends Resource {
     url(...args) {
         return this.repo.url(`releases/${this.id}`, ...args);
     }
+
+    asset(id) { return this.resource(ReleaseAsset, id); }
 
     // Get details about the release
     info() {
