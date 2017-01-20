@@ -19,6 +19,7 @@ class Resource {
      * @return {String}
      */
     url(...args) {
+        args = args.filter(arg => Boolean(arg));
         return joinURL(...args);
     }
 

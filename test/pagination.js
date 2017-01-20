@@ -6,9 +6,9 @@ describe('Pagination', () => {
     it('should correctly return a Page object', () => {
         return client.repos()
         .then((page) => {
-            expect(page).toIncludeKey('list');
-            expect(page).toIncludeKey('next');
-            expect(page).toIncludeKey('prev');
+            expect(page.list).toBeAn('array');
+            expect(page.next).toBeAn('function');
+            expect(page.prev).toBeAn('function');
 
             return page.next();
         });

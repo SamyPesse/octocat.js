@@ -18,11 +18,7 @@ describe('Issues', () => {
 
         return repo.issues()
         .then((page) => {
-            expect(page).toIncludeKey('list');
-            expect(page).toIncludeKey('next');
-            expect(page).toIncludeKey('prev');
-
-            return page.next();
+            expect(page.list[0]).toIncludeKey('number');
         });
     });
 
