@@ -8,9 +8,10 @@ class GitHubError extends Error {
     constructor(message) {
         super(message);
 
-        this.name = this.constructor.name;
+        this.name = 'GitHubError';
         this.message = message;
         this.statusCode = 0;
+        this.code = 0;
         this.statusType = '0xx';
         this.response = null;
 
@@ -21,28 +22,33 @@ class GitHubError extends Error {
         }
     }
 
-    get code() {
-        return this.statusCode;
-    }
-
     /**
      * Create an error object for a fetch response.
      * @param  {Response} response
      * @return {GitHubError} error
      */
     static createForResponse(opts) {
-        const err = new GitHubError(`Error ${opts.statusCode}`);
+        let message = `Error ${opts.statusCode}`;
+        let errors, documentationUrl;
+
+        if (is.object(opts.body) && opts.body.message) {
+            message = opts.body.message || opts.message;
+        }
+
+        const err = new GitHubError(message);
+
+        Object.defineProperty(err, 'response', {
+            value: opts.response,
+            enumerable: false
+        });
+
         err.statusCode = opts.statusCode;
+        err.code = err.statusCode;
         err.statusType = opts.statusType;
-        err.response = opts.response;
         err.body = opts.body;
         err.headers = opts.headers;
-
-        if (is.object(err.body) && err.body.message) {
-            err.message = err.body.message || err.message;
-            err.documentationUrl = err.body.documentation_url;
-            err.errors = err.body.errors || [];
-        }
+        err.documentationUrl = documentationUrl;
+        err.errors = errors || [];
 
         return err;
     }

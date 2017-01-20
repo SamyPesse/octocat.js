@@ -13,6 +13,8 @@ describe('Error', () => {
             expect(err.name).toEqual('GitHubError');
             expect(err.message).toEqual('Not Found');
             expect(err.statusCode).toEqual(404);
+            expect(err.statusType).toEqual('4XX');
+            expect(err.response).toExist();
         });
     });
 
