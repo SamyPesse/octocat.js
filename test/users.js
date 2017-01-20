@@ -1,15 +1,15 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('User', function() {
+describe('User', () => {
 
-    it('should correctly get infos about an user', function() {
-        var user = client.user('SamyPesse')
+    it('should correctly get infos about an user', () => {
+        const user = client.user('SamyPesse');
 
         return user.info()
-        .then(function(details) {
-
+        .then((details) => {
+            expect(details.login).toEqual('SamyPesse');
         });
     });
 
 });
-

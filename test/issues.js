@@ -1,30 +1,25 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Issues', function() {
+describe('Issues', () => {
 
-    it('should correctly get infos about an issue', function() {
-        var repo = client.repo('GitbookIO/gitbook')
-        var issue = repo.issue(200);
+    it('should correctly get infos about an issue', () => {
+        const repo = client.repo('GitbookIO/gitbook');
+        const issue = repo.issue(200);
 
         return issue.info()
-        .then(function(details) {
-
+        .then((details) => {
+            expect(details.number).toEqual('200');
         });
     });
 
-    it('should correctly list issues for a repository', function() {
-        var repo = client.repo('GitbookIO/gitbook')
+    it('should correctly list issues for a repository', () => {
+        const repo = client.repo('GitbookIO/gitbook');
 
         return repo.issues()
-        .then(function(page) {
-            page.should.have.property('list');
-            page.should.have.property('next');
-            page.should.have.property('prev');
-
-            return page.next().then(function(page) {
-            });
+        .then((page) => {
+            expect(page.list[0]).toIncludeKey('number');
         });
     });
 
 });
-

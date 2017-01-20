@@ -20,26 +20,26 @@ $ npm install octocat --save
 #### Create an API client
 
 ```js
-var GitHub = require('octocat');
+const GitHub = require('octocat');
 
 // Using an access token
-var client = new GitHub({
-    token: "my-access-token"
+const client = new GitHub({
+    token: 'my-access-token'
 });
 
 // Using an username/password
-var client = new GitHub({
-    username: "SamyPesse",
-    password: "my-password"
+const client = new GitHub({
+    username: 'SamyPesse',
+    password: 'my-password'
 });
 
 // Connecting to an enterprise version
-var client = new GitHub({
-    endpoint: "https:///github.mycompany.com"
+const client = new GitHub({
+    endpoint: 'https:///github.mycompany.com'
 });
 ```
 
-#### Direct API access
+#### HTTP API access
 
 All of these methods return promises.
 
@@ -89,11 +89,11 @@ These methods return a `Page` object:
 
 ```js
 // Get a single user
-var user = client.user('SamyPesse');
+const user = client.user('SamyPesse');
 user.info().then(function(infos) { ... });
 
 // Get the authenticated user
-var user = client.me();
+const user = client.me();
 
 // Edit the authenticated user
 user.edit({
@@ -114,7 +114,7 @@ client.repos().then(function(page) { ... });
 user.repos().then(function(page) { ... });
 
 // Get a single repository
-var repo = client.repo('SamyPesse/octocat.js');
+const repo = client.repo('SamyPesse/octocat.js');
 repo.info().then(function(infos) { ... });
 
 // Compare two commits
@@ -139,7 +139,7 @@ repo.createIssue({
 });
 
 // Get a single issue in a repository
-var issue = repo.issue(200);
+const issue = repo.issue(200);
 issue.info().then(function(infos) { ... });
 
 // Edit an issue
@@ -155,7 +155,7 @@ issue.edit({
 user.orgs().then(function(orgs) { ... });
 
 // Get a single organization
-var org = client.org('GitbookIO');
+const org = client.org('GitbookIO');
 org.info().then(function(infos) { ... });
 
 // Edit the organization
@@ -177,7 +177,7 @@ org.createRepo({ ... }).then(function() { });
 repo.commits().then(function(commits) { ... });
 
 // Get a single commit
-var commit = repo.commit('6dcb09b5b57875f334f61aebed695e2e4193db5e');
+const commit = repo.commit('6dcb09b5b57875f334f61aebed695e2e4193db5e');
 commit.info().then(function(infos) { ... });
 ```
 
@@ -198,7 +198,7 @@ commit.statuses().then(function(statuses) { ... });
 repo.branches().then(function(branches) { ... });
 
 // Get a single branch
-var branch = repo.branch('master');
+const branch = repo.branch('master');
 branch.info().then(function(infos) { ... });
 ```
 
@@ -216,7 +216,7 @@ repo.tags().then(function(tags) { ... });
 repo.hooks().then(function(hooks) { ... });
 
 // Get a single hook
-var hook = repo.hook('1');
+const hook = repo.hook('1');
 hook.info().then(function(infos) { ... });
 
 // Edit a hook
@@ -235,7 +235,7 @@ hook.destroy()
 repo.releases().then(function(assets) { ... });
 
 // Get details about the release
-var release = repo.release('1');
+const release = repo.release('1');
 release.info().then(function(infos) { ... });
 
 // Edit a release
@@ -259,7 +259,7 @@ release.upload(stream, { name: "myfile.zip" }).then(function() { ... });
 
 ```js
 release.upload('./myfile.zip')
-.progress(function(p) {
+.progress((p) => {
     /*
     { percentage: 96.61881065572815,
       transferred: 45088768,
@@ -271,7 +271,7 @@ release.upload('./myfile.zip')
       speed: 3920762.434782609 }
     */
 })
-.then(function() {
+.then(() => {
 
 });
 
@@ -284,7 +284,7 @@ release.upload('./myfile.zip')
 release.assets().then(function(assets) { ... });
 
 // Get details about the release
-var asset = release.asset('1');
+const asset = release.asset('1');
 asset.info().then(function(infos) { ... });
 
 // Download the asset to a file
@@ -313,8 +313,8 @@ client.deleteUserEmails([ 'octocat@github.com' ]).then(function() { ... });
 #### Authorization for a specific app
 
 ```js
-var app = client.application('clientId');
-var token = app.token('access_token');
+const app = client.application('clientId');
+const token = app.token('access_token');
 
 // Check an authorization
 token.info().then(function(infos) { ... });
@@ -331,7 +331,7 @@ token.destroy().then(function() { ... });
 ###### Reference
 
 ```js
-var ref = repo.gitRef('heads/master');
+const ref = repo.gitRef('heads/master');
 
 // Get a reference
 ref.info().then(function(infos) { ... });
@@ -344,7 +344,7 @@ ref.destroy().then(function() { ... });
 ###### Commit
 
 ```js
-var commit = repo.gitCommit('<sha>');
+const commit = repo.gitCommit('<sha>');
 
 // Get a commit
 commit.info().then(function(infos) { ... });
@@ -357,4 +357,3 @@ You can also check your rate limit status by calling the following.
 ```js
 client.limit().then(function(rate) { ... })
 ```
-

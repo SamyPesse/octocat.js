@@ -1,18 +1,17 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Pagination', function() {
+describe('Pagination', () => {
 
-    it('should correctly return a Page object', function() {
+    it('should correctly return a Page object', () => {
         return client.repos()
-        .then(function(page) {
-            page.should.have.property('list');
-            page.should.have.property('next');
-            page.should.have.property('prev');
+        .then((page) => {
+            expect(page.list).toBeAn('array');
+            expect(page.next).toBeAn('function');
+            expect(page.prev).toBeAn('function');
 
-            return page.next().then(function(page) {
-            });
+            return page.next();
         });
     });
 
 });
-

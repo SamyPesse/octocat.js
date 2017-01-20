@@ -1,15 +1,15 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Repository', function() {
+describe('Repository', () => {
 
-    it('should correctly get infos about a repository', function() {
-        var repo = client.repo('GitbookIO/gitbook')
+    it('should correctly get infos about a repository', () => {
+        const repo = client.repo('GitbookIO/gitbook');
 
         return repo.info()
-        .then(function(details) {
-
+        .then((details) => {
+            expect(details.id).toBe(18280236);
         });
     });
 
 });
-

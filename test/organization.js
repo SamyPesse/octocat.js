@@ -1,15 +1,15 @@
-var client = require('./client');
+const expect = require('expect');
+const client = require('./client');
 
-describe('Organization', function() {
+describe('Organization', () => {
 
-    it('should correctly get infos about an organization', function() {
-        var user = client.org('GitbookIO')
+    it('should correctly get infos about an organization', () => {
+        const user = client.org('GitbookIO');
 
         return user.info()
-        .then(function(details) {
-
+        .then((details) => {
+            expect(details.login).toEqual('GitbookIO');
         });
     });
 
 });
-
