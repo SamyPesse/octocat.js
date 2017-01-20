@@ -25,8 +25,8 @@ class APIClient {
             // Basic auth
             username:  null,
             password:  null,
-            // Request default options
-            request:   {},
+            // Custom headers to send
+            headers: {},
             ...opts
         };
     }
@@ -138,6 +138,7 @@ class APIClient {
                 headers: {
                     'User-Agent': this.opts.userAgent,
                     'Authorization': this.getAuthorizationHeader(),
+                    ...this.opts.headers,
                     ...opts.headers
                 }
             },
