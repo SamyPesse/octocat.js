@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 1.0.5
+
+- Fix options for request not being applied
+
 ### 1.0.4
 
 - Fix methods `client.patch/post/del`
