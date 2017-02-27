@@ -42,6 +42,11 @@ class Organization extends Resource {
         });
     }
 
+    // Return list of members
+    // https://developer.github.com/v3/orgs/members/#members-list
+    members(params, options) {
+        return this.page('members', params, options);
+    }
 
     // Create a new repository
     // https://developer.github.com/v3/repos/#create
