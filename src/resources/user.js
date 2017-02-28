@@ -77,6 +77,12 @@ class User extends Resource {
         return this.get(`memberships/orgs/${org}`)
             .get('body');
     }
+
+    // List current user's memberships to all of his organizations
+    // https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
+    getOrgsMemberships(params, options) {
+        return this.page('memberships/orgs', params, options);
+    }
 }
 
 module.exports = User;

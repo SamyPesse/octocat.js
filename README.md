@@ -154,6 +154,12 @@ issue.edit({
 // List organizations of an user
 user.orgs().then(function(orgs) { ... });
 
+// Check an user's membership to an organization
+user.getOrgMembership('organization').then(function(membership) { ... });
+
+// List an user's memberships to all of his organizations
+user.getOrgsMemberships({ state: 'active' }).then(function(page) { ... });
+
 // Get a single organization
 const org = client.org('GitbookIO');
 org.info().then(function(infos) { ... });
