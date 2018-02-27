@@ -38,6 +38,9 @@ class Resource {
     del(uri, params, opts) {
         return this.client.del(this.url(uri), params, opts);
     }
+    put(uri, params, opts) {
+        return this.client.put(this.url(uri), params, opts);
+    }
 
     /**
      * Create a subresource for this resource.
