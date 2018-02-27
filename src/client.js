@@ -174,6 +174,9 @@ class APIClient {
     patch(uri, params, opts) {
         return this.request('PATCH', uri, params, opts);
     }
+    put(uri, params, opts) {
+        return this.request('PUT', uri, params, opts);
+    }
     del(uri, params, opts) {
         return this.request('DELETE', uri, params, opts);
     }
