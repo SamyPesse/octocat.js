@@ -2,9 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-### 1.2.0
+### 1.2.x
 
-- Add method `.put` on Client
+- Add method `.put` on Client and Resource
 
 ### 1.1.0
 
