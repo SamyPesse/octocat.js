@@ -16,7 +16,7 @@
     "mime-types": "^2.1.4",
     "progress-stream": "^1.1.1",
     "q": "^1.4.1",
-    "request": "2.64.0",
+    "request": "2.87.0",
     "url-join": "^1.1.0"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "eslint": "^3.13.1",
     "eslint-config-gitbook": "^1.5.0",
     "expect": "^1.20.2",
-    "mocha": "^3.2.0"
+    "mocha": "^5.2.0"
   },
   "scripts": {
     "prepublish": "babel --out-dir ./lib ./src",
